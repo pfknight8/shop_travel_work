@@ -41,11 +41,11 @@
 
 #### **_Component Hierarchy_**
 
-<img alt="component hierarchy diagram" width='500' src="./public/SWT_CHD.png" />
+<img alt="component hierarchy diagram" width='500' src="./public/STW_CHD.png" />
 
 #### **_ERD_**
 
-<img alt="entity relationship diagram" width='500' src="./public/SWT_ERD.png" />
+<img alt="entity relationship diagram" width='500' src="./public/STW_ERD.png" />
 
 ---
 
