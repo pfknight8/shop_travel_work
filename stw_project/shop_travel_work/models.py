@@ -23,6 +23,7 @@ class LocalFare(models.Model):
   category = models.CharField(max_length=50)
   description = models.TextField()
   establishment = models.CharField(max_length=100)
+  location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='locations')
 
   def __str__(self):
     return self.name
