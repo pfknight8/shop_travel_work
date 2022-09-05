@@ -47,6 +47,18 @@ class LocalFareSerializer(serializers.ModelSerializer):
     view_name='location-detail',
     read_only=True
   )
+  user = serializers.HyperlinkedRelatedField(
+    view_name='user-detail',
+    read_only=True
+  )
+  location_id = serializers.PrimaryKeyRelatedField(
+    queryset=Location.objects.all(),
+    source='location'
+  )
+  user_id = serializers.PrimaryKeyRelatedField(
+    queryset=User.objects.all(),
+    source='user'
+  )
   class Meta:
     model = LocalFare
     fields = '__all__'
@@ -56,9 +68,17 @@ class LocalItemSerializer(serializers.ModelSerializer):
     view_name='location-detail',
     read_only=True
   )
+  user = serializers.HyperlinkedRelatedField(
+    view_name='user-detail',
+    read_only=True
+  )
   location_id = serializers.PrimaryKeyRelatedField(
     queryset=Location.objects.all(),
     source='location'
+  )
+  user_id = serializers.PrimaryKeyRelatedField(
+    queryset=User.objects.all(),
+    source='user'
   )
   class Meta:
     model = LocalItem
