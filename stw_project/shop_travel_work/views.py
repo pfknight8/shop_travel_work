@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
-from shop_travel_work.serializers import LocalFareSerializer, LocationSerializer, LocalItemSerializer, LocationPostSerializer, UserSerializer
-from .models import Location, LocalFare, LocalItem, LocationPost, User
+from shop_travel_work.serializers import LocalFareSerializer, LocationSerializer, LocalItemSerializer, LocationPostSerializer
+from accounts.serializers import UserSerializer
+from .models import Location, LocalFare, LocalItem, LocationPost
+from accounts.models import User
 
 # Create your views here.
 class LocationList(generics.ListCreateAPIView):
