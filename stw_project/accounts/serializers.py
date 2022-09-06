@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import User
 from shop_travel_work.serializers import LocalFareSerializer, LocalItemSerializer, LocationPostSerializer
-from shop_travel_work.models import LocalFare, LocalItem, LocationPost
+# from shop_travel_work.models import LocalFare, LocalItem, LocationPost
 
 class UserSerializer(serializers.ModelSerializer):
   # localfares = serializers.HyperlinkedRelatedField(
@@ -20,9 +20,9 @@ class UserSerializer(serializers.ModelSerializer):
   #   read_only=True
   # )
 
-  localfares = LocalFareSerializer(many=True, view_name='localfare-detail', read_only=True)
-  localitems = LocalItemSerializer(many=True, view_name='localitem-detal', read_only=True)
-  locationposts = LocationPostSerializer(many=True, view_name='locationpost-detail', read_only=True)
+  localfares = LocalFareSerializer(many=True, read_only=True)
+  localitems = LocalItemSerializer(many=True, read_only=True)
+  locationposts = LocationPostSerializer(many=True, read_only=True)
 
   class Meta:
     model = User

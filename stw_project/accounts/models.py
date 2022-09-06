@@ -5,7 +5,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 
 class UserManager(BaseUserManager):
   def get_by_natural_key(self, username):
-    return self.get(username_iexact=username)
+    return self.get(username__iexact=username)
     
   def create_user(self, username, email, password, **extra_fields):
     if not email:
@@ -24,24 +24,24 @@ class UserManager(BaseUserManager):
     
   def create_staffuser(self, username, email, password, **extra_fields):
     user = self.create_user(username, email, password=password, **extra_fields)
-    user.is_staff = True
-    user.is_admin = False
+    user.staff = True
+    user.admin = False
     user.save(using=self._db)
     return user
 
   def create_superuser(self, username, email, password, **extra_fields):
     user = self.create_user(username, email, password=password, **extra_fields)
-    user.is_staff = True
-    user.is_admin = True
+    user.staff = True
+    user.admin = True
     user.save(using=self._db)
     return user
 
 class User(AbstractBaseUser):
   username = models.CharField(max_length=50, unique=True)
   email = models.EmailField(verbose_name='email address', max_length=100, unique=True)
-  is_active = models.BooleanField(default=True)
-  is_staff = models.BooleanField(default=False)
-  is_admin = models.BooleanField(default=False)
+  active = models.BooleanField(default=True)
+  staff = models.BooleanField(default=False)
+  admin = models.BooleanField(default=False)
   first_name = models.CharField(max_length=100)
   last_name = models.CharField(max_length=100)
   # passwold is built in, so no need to include here.
@@ -57,6 +57,9 @@ class User(AbstractBaseUser):
   def has_perm(self, perm, obj=None):
     return True
 
+  def has_perms(self, perm, obj=None):
+    return True
+
   def has_module_perms(self, app_label):
     return True
 
@@ -67,7 +70,7 @@ class User(AbstractBaseUser):
 
   @property
   def is_staff(self):
-    return self.is_staff
+    return self.staff
 
   @property
   def is_admin(self):

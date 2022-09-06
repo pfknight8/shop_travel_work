@@ -1,7 +1,7 @@
 from dataclasses import field
 from rest_framework import serializers
 from .models import Location, LocalFare, LocalItem, LocationPost
-from accounts.serializers import UserSerializer
+# from accounts.serializers import UserSerializer
 from accounts.models import User
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -49,11 +49,11 @@ class LocalFareSerializer(serializers.ModelSerializer):
     view_name='location-detail',
     read_only=True
   )
-  # user = serializers.HyperlinkedRelatedField(
-  #   view_name='user-detail',
-  #   read_only=True
-  # )
-  user = UserSerializer(view_name='user-detail', read_only=True)
+  user = serializers.HyperlinkedRelatedField(
+    view_name='user-detail',
+    read_only=True
+  )
+  # user = UserSerializer(view_name='user-detail', read_only=True)
   location_id = serializers.PrimaryKeyRelatedField(
     queryset=Location.objects.all(),
     source='location'

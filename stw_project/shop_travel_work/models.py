@@ -28,7 +28,7 @@ class LocalFare(models.Model):
     stay_away = -1
     neutral = 0
     recommend = 1
-  recommend = models.IntegerField(choices=RateOptions.choices)
+  recommend = models.IntegerField(choices=RateOptions.choices, default=0)
   name = models.CharField(max_length=100)
   category = models.CharField(max_length=50)
   description = models.TextField()
