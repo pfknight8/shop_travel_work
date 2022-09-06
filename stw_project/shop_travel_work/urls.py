@@ -11,6 +11,7 @@ urlpatterns = [
   path('localitem/<int:pk>', views.LocalItemDetail.as_view(), name='localitem-detail'),
   path('locations/posts', views.LocationPostList.as_view(), name='locationpost-list'),
   path('locations/posts/<int:pk>', views.LocationPostDetail.as_view(), name='locationpost-detail'),
-  path('users', views.UserList.as_view(), name='user-list'),
-  path('users/<int:pk>', views.UserDetail.as_view(), name='user-detail')
+  #editing these to make them have auth.
+  path('users', views.UserViewSet.as_view({'get': 'list', 'post': 'create'}), name='user-list'),
+  path('users/<int:pk>', views.UserDetailViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='user-detail')
 ]
