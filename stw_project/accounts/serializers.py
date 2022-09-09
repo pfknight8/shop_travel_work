@@ -4,21 +4,6 @@ from shop_travel_work.serializers import LocalFareSerializer, LocalItemSerialize
 # from shop_travel_work.models import LocalFare, LocalItem, LocationPost
 
 class UserSerializer(serializers.ModelSerializer):
-  # localfares = serializers.HyperlinkedRelatedField(
-  #   view_name='localfare-detail',
-  #   many=True,
-  #   read_only=True
-  # )
-  # localitems = serializers.HyperlinkedRelatedField(
-  #   view_name='localitem-detail',
-  #   many=True,
-  #   read_only=True
-  # )
-  # locationposts = serializers.HyperlinkedRelatedField(
-  #   view_name='locationpost-detail',
-  #   many=True,
-  #   read_only=True
-  # )
 
   localfares = LocalFareSerializer(many=True, read_only=True)
   localitems = LocalItemSerializer(many=True, read_only=True)
@@ -30,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
     extra_kwargs = {"password": {"write_only": True}}
 
   def create(self, validated_data):
-    user = models.User.objects.create_user(
+    user = User.objects.create_user(
       username=validated_data['username'],
       email=validated_data['email'],
       password=validated_data['password'],
