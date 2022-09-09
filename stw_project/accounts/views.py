@@ -1,8 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from .models import User
 from .serializers import UserSerializer
+from .custompermissions import IsUserAndAuthenticated
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -27,7 +29,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class UserDetailViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
   serializer_class = UserSerializer
-  permission_classes_by_action = {'retrieve': [IsAuthenticated], 'update': [IsAdminUser], 'destroy': [IsAdminUser]}
+  permission_classes_by_action = {'retrieve': [IsAuthenticated], 'update': [IsAdminUser], 'destroy': [IsUserAndAuthenticated]}
 
   def retrieve(self, request, *args, **kwargs):
     return super(UserDetailViewSet, self).retrieve(request, *args, **kwargs)
@@ -35,8 +37,15 @@ class UserDetailViewSet(viewsets.ModelViewSet):
   def update(self, request, *args, **kwargs):
     return super(UserDetailViewSet, self).update(request, *args, **kwargs)
 
+  # def destroy(self, request, *args, **kwargs):
+  #   return super(UserDetailViewSet, self).destroy(request, *args, **kwargs)
+
   def destroy(self, request, *args, **kwargs):
-    return super(UserDetailViewSet, self).destroy(request, *args, **kwargs)
+    user = self.get_object()
+    user.active = False
+    user.save()
+    response = HttpResponse("User Deleted")
+    return response
 
   def get_permissions(self):
         try:

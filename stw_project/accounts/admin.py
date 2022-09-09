@@ -5,6 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 from accounts.models import User
+from typing import Set
 
 # Register your models here.
 class UserCreationForm(forms.ModelForm):
@@ -63,6 +64,25 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('username', 'email',)
     ordering = ('username', 'email',)
     filter_horizontal = ()
+    
+    # The following is from https://realpython.com/manage-users-in-django-admin/
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        admin = request.user.admin
+        disabled_fields = set()  # type: Set[str]
+
+        if not admin:
+            disabled_fields |= {
+                'first_name',
+                'last_name',
+                'admin',
+            }
+
+        for f in disabled_fields:
+            if f in form.base_fields:
+                form.base_fields[f].disabled = True
+
+        return form
 
 
 # Now register the new UserAdmin
