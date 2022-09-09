@@ -1,18 +1,10 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 User = settings.AUTH_USER_MODEL
 
 # Create your models here.
-class Location(models.Model):
-  name = models.CharField(max_length=100, unique=True)
-  country = models.CharField(max_length=75)
-  state_province = models.CharField(max_length=100)
-  city = models.CharField(max_length=100)
-
-  def __str__(self):
-    return self.name
-
 # class User(models.Model):
 #   username = models.CharField(max_length=50, unique=True)
 #   first_name = models.CharField(max_length=50)
@@ -22,6 +14,17 @@ class Location(models.Model):
 
 #   def __str__(self):
 #     return self.username
+
+class Location(models.Model):
+  name = models.CharField(max_length=100, unique=True)
+  country = models.CharField(max_length=75)
+  state_province = models.CharField(max_length=100)
+  city = models.CharField(max_length=100)
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+  def __str__(self):
+    return self.name
 
 class LocalFare(models.Model):
   class RateOptions(models.IntegerChoices):
@@ -35,6 +38,8 @@ class LocalFare(models.Model):
   establishment = models.CharField(max_length=100)
   location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='localfares')
   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='localfares')
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
     return self.name
@@ -47,6 +52,8 @@ class LocalItem(models.Model):
   image = models.CharField(max_length=200)
   location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='localitems')
   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='localitems')
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
     return self.name
@@ -56,6 +63,8 @@ class LocationPost(models.Model):
   body = models.TextField()
   location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='locationposts')
   user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='locationposts')
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
 
   def __str__(self):
     return self.title

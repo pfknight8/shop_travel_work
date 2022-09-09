@@ -22,7 +22,7 @@ class LocationSerializer(serializers.ModelSerializer):
   )
   class Meta:
     model = Location
-    fields = ['id', 'name', 'country', 'state_province', 'city', 'localfares', 'localitems', 'locationposts']
+    fields = '__all__'
 
 # class UserSerializer(serializers.ModelSerializer):
 #   localfares = serializers.HyperlinkedRelatedField(
