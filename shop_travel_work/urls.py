@@ -10,6 +10,7 @@ urlpatterns = [
   # Local Fare paths
   path('localfare', views.LocalFareList.as_view(), name='localfare-list'),
   path('localfare/<int:pk>', views.LocalFareDetailSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='localfare-detail'),
+  # path('localfare/<int:location_id', views.LocalFaresByLocation, name='localfare-location'),
   # Local Item paths
   path('localitems', views.LocalItemList.as_view(), name='localitem-list'),
   path('localitems/<int:pk>', views.LocalItemDetailSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='localitem-detail'),

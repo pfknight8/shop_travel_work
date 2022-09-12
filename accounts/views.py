@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from .models import User
 from .serializers import UserSerializer
 from .custompermissions import IsUserAndAuthenticated
+from accounts import serializers
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -54,3 +55,8 @@ class UserDetailViewSet(viewsets.ModelViewSet):
         except KeyError: 
             # action is not set return default permission_classes
             return [permission() for permission in self.permission_classes]
+
+class CreateUserView(generics.CreateAPIView):
+  model = User
+  permission_classes = [AllowAny]
+  serializer_class = UserSerializer
