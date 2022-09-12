@@ -5,18 +5,15 @@ from .models import Location, LocalFare, LocalItem, LocationPost
 from accounts.models import User
 
 class LocationSerializer(serializers.ModelSerializer):
-  localfares = serializers.HyperlinkedRelatedField(
-    view_name='localfare-detail',
+  localfares = serializers.PrimaryKeyRelatedField(
     many=True,
     read_only=True
   )
-  localitems = serializers.HyperlinkedRelatedField(
-    view_name='localitem-detail',
+  localitems = serializers.PrimaryKeyRelatedField(
     many=True,
     read_only=True
   )
-  locationposts = serializers.HyperlinkedRelatedField(
-    view_name='locationpost-detail',
+  locationposts = serializers.PrimaryKeyRelatedField(
     many=True,
     read_only=True
   )
@@ -45,11 +42,11 @@ class LocationSerializer(serializers.ModelSerializer):
 #     fields = '__all__'
 
 class LocalFareSerializer(serializers.ModelSerializer):
-  location = serializers.HyperlinkedRelatedField(
+  location_url = serializers.HyperlinkedRelatedField(
     view_name='location-detail',
     read_only=True
   )
-  user = serializers.HyperlinkedRelatedField(
+  user_url = serializers.HyperlinkedRelatedField(
     view_name='user-detail',
     read_only=True
   )
@@ -67,11 +64,11 @@ class LocalFareSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 class LocalItemSerializer(serializers.ModelSerializer):
-  location = serializers.HyperlinkedRelatedField(
+  location_url = serializers.HyperlinkedRelatedField(
     view_name='location-detail',
     read_only=True
   )
-  user = serializers.HyperlinkedRelatedField(
+  user_url = serializers.HyperlinkedRelatedField(
     view_name='user-detail',
     read_only=True
   )
@@ -88,11 +85,11 @@ class LocalItemSerializer(serializers.ModelSerializer):
     fields = '__all__'
 
 class LocationPostSerializer(serializers.ModelSerializer):
-  location = serializers.HyperlinkedRelatedField(
+  location_url = serializers.HyperlinkedRelatedField(
     view_name='location-detail',
     read_only=True
   )
-  user = serializers.HyperlinkedRelatedField(
+  user_url = serializers.HyperlinkedRelatedField(
     view_name='user-detail',
     read_only=True
   )
