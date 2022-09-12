@@ -1,7 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
+from rest_framework.response import Response
 from .models import User
 from .serializers import UserSerializer
 from .custompermissions import IsUserAndAuthenticated
@@ -30,10 +31,16 @@ class UserViewSet(viewsets.ModelViewSet):
 class UserDetailViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
   serializer_class = UserSerializer
-  permission_classes_by_action = {'retrieve': [IsAuthenticated], 'update': [IsAdminUser], 'destroy': [IsUserAndAuthenticated]}
+  permission_classes_by_action = {'retrieve': [IsAuthenticated], 'update': [IsUserAndAuthenticated], 'destroy': [IsUserAndAuthenticated | IsAdminUser]}
 
-  def retrieve(self, request, *args, **kwargs):
-    return super(UserDetailViewSet, self).retrieve(request, *args, **kwargs)
+  # def retrieve(self, request, *args, **kwargs):
+  #   return super(UserDetailViewSet, self).retrieve(request, *args, **kwargs)
+
+  def retrieve(self, request, username):
+    queryset = User.objects.all()
+    user = get_object_or_404(queryset, username=username)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
   
   def update(self, request, *args, **kwargs):
     return super(UserDetailViewSet, self).update(request, *args, **kwargs)

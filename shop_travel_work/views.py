@@ -16,6 +16,7 @@ class LocationListView(viewsets.ModelViewSet):
   queryset = Location.objects.all()
   serializer_class = LocationSerializer
   permission_classes_by_action = {'list': [AllowAny], 'create': [IsAdminUser]}
+  authentication_classes = ()
 
   def list(self, request, *args, **kwargs):
     return super(LocationListView, self).list(request, *args, **kwargs)
