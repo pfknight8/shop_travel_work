@@ -4,17 +4,6 @@ from django.utils import timezone
 
 User = settings.AUTH_USER_MODEL
 
-# Create your models here.
-# class User(models.Model):
-#   username = models.CharField(max_length=50, unique=True)
-#   first_name = models.CharField(max_length=50)
-#   last_name = models.CharField(max_length=50)
-#   email = models.EmailField()
-#   password_digest = models.CharField(max_length=25)
-
-#   def __str__(self):
-#     return self.username
-
 class Location(models.Model):
   name = models.CharField(max_length=100, unique=True)
   country = models.CharField(max_length=75)
