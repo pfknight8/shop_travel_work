@@ -1,12 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets
-from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from .custompermissions import IsOwnerAndAuthenticated
 from shop_travel_work.serializers import LocalFareSerializer, LocationSerializer, LocalItemSerializer, LocationPostSerializer
-# from accounts.serializers import UserSerializer
 from .models import Location, LocalFare, LocalItem, LocationPost
-# from accounts.models import User
 
 ###########################
 ## - Location Listings - ##
@@ -58,7 +55,14 @@ class LocationDetailSet(viewsets.ModelViewSet):
 ## - Local Fare Posts - ##
 ##########################
 
-class LocalFareList(generics.ListCreateAPIView):
+class LocalFareList(generics.ListAPIView):
+  serializer_class = LocalFareSerializer
+
+  def get_queryset(self):
+    id = int(self.request.GET.get('id',''))
+    return LocalFare.objects.filter(location=id)
+
+class LocalFareCreateList(generics.ListCreateAPIView):
   queryset = LocalFare.objects.all()
   serializer_class = LocalFareSerializer
 
@@ -89,6 +93,12 @@ class LocalFareDetailSet(viewsets.ModelViewSet):
 ##########################
 
 class LocalItemList(generics.ListCreateAPIView):
+  serializer_class = LocalItemSerializer
+  def get_queryset(self):
+    id = int(self.request.GET.get('id',''))
+    return LocalItem.objects.filter(location=id)
+
+class LocalItemCreateList(generics.ListCreateAPIView):
   queryset = LocalItem.objects.all()
   serializer_class = LocalItemSerializer
 
@@ -118,7 +128,14 @@ class LocalItemDetailSet(viewsets.ModelViewSet):
 ## - Location Posts - ##
 ########################
 
-class LocationPostListView(viewsets.ModelViewSet):
+class LocationPostListView(generics.ListAPIView):
+  serializer_class = LocationPostSerializer
+
+  def get_queryset(self):
+    id = int(self.request.GET.get('id',''))
+    return LocationPost.objects.filter(location=id)
+
+class LocationPostCreateListView(viewsets.ModelViewSet):
   queryset = LocationPost.objects.all()
   serializer_class = LocationPostSerializer
   permission_classes_by_action = {'list': [AllowAny], 'create': [IsAuthenticated]}
@@ -158,57 +175,3 @@ class LocationPostDetailSet(viewsets.ModelViewSet):
         except KeyError: 
             # action is not set return default permission_classes
             return [permission() for permission in self.permission_classes]
-
-#######################
-## obsolete - moved user stuff to accounts, delete this if works without it here.
-#######################
-
-# class UserList(generics.ListCreateAPIView):
-#   queryset = User.objects.all()
-#   serializer_class = UserSerializer
-
-# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-#   queryset = User.objects.all()
-#   serializer_class = UserSerializer
-
-# Altenative views
-# class UserViewSet(viewsets.ModelViewSet):
-#   queryset = User.objects.all()
-#   serializer_class = UserSerializer
-#   permission_classes_by_action = {'create': [AllowAny], 'list': [IsAdminUser]}
-
-#   def create(self, request, *args, **kwargs):
-#     return super(UserViewSet, self).create(request, *args, **kwargs)
-  
-#   def list(self, request, *args, **kwargs):
-#     return super(UserViewSet, self).list(request, *args, **kwargs)
-
-#   def get_permissions(self):
-#         try:
-#             # return permission_classes depending on `action` 
-#             return [permission() for permission in self.permission_classes_by_action[self.action]]
-#         except KeyError: 
-#             # action is not set return default permission_classes
-#             return [permission() for permission in self.permission_classes]
-
-# class UserDetailViewSet(viewsets.ModelViewSet):
-#   queryset = User.objects.all()
-#   serializer_class = UserSerializer
-#   permission_classes_by_action = {'retrieve': [IsAuthenticated], 'update': [IsAdminUser], 'destroy': [IsAdminUser]}
-
-#   def retrieve(self, request, *args, **kwargs):
-#     return super(UserDetailViewSet, self).retrieve(request, *args, **kwargs)
-  
-#   def update(self, request, *args, **kwargs):
-#     return super(UserDetailViewSet, self).update(request, *args, **kwargs)
-
-#   def destroy(self, request, *args, **kwargs):
-#     return super(UserDetailViewSet, self).destroy(request, *args, **kwargs)
-
-#   def get_permissions(self):
-#         try:
-#             # return permission_classes depending on `action` 
-#             return [permission() for permission in self.permission_classes_by_action[self.action]]
-#         except KeyError: 
-#             # action is not set return default permission_classes
-#             return [permission() for permission in self.permission_classes]
