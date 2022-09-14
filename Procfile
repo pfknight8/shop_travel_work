@@ -1,1 +1,1 @@
-web: gunicorn shop_travel_work.wsgi
+web: python3 manage.py runserver 0.0.0.0:5432 --noreload
