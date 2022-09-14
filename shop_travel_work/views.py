@@ -57,9 +57,14 @@ class LocationDetailSet(viewsets.ModelViewSet):
 
 class LocalFareList(generics.ListAPIView):
   serializer_class = LocalFareSerializer
+  permission_classes = [AllowAny]
 
   def get_queryset(self):
-    id = int(self.request.GET.get('id',''))
+    id = self.request.GET.get('id','')
+    if id:
+      id = int(id)
+    else:
+      id = 0
     return LocalFare.objects.filter(location=id)
 
 class LocalFareCreateList(generics.ListCreateAPIView):
@@ -94,13 +99,19 @@ class LocalFareDetailSet(viewsets.ModelViewSet):
 
 class LocalItemList(generics.ListCreateAPIView):
   serializer_class = LocalItemSerializer
+  permission_classes = [AllowAny]
   def get_queryset(self):
-    id = int(self.request.GET.get('id',''))
+    id = self.request.GET.get('id','')
+    if id:
+      id = int(id)
+    else:
+      id = 0
     return LocalItem.objects.filter(location=id)
 
 class LocalItemCreateList(generics.ListCreateAPIView):
   queryset = LocalItem.objects.all()
   serializer_class = LocalItemSerializer
+  permission_classes_by_action = {'list': [AllowAny], 'create': [IsAuthenticated]}
 
 class LocalItemDetailSet(viewsets.ModelViewSet):
   queryset = LocalItem.objects.all()
@@ -130,9 +141,14 @@ class LocalItemDetailSet(viewsets.ModelViewSet):
 
 class LocationPostListView(generics.ListAPIView):
   serializer_class = LocationPostSerializer
+  permission_classes = [AllowAny]
 
   def get_queryset(self):
-    id = int(self.request.GET.get('id',''))
+    id = self.request.GET.get('id','')
+    if id:
+      id = int(id)
+    else:
+      id = 0
     return LocationPost.objects.filter(location=id)
 
 class LocationPostCreateListView(viewsets.ModelViewSet):
@@ -141,10 +157,10 @@ class LocationPostCreateListView(viewsets.ModelViewSet):
   permission_classes_by_action = {'list': [AllowAny], 'create': [IsAuthenticated]}
 
   def list(self, request, *args, **kwargs):
-    return super(LocationPostListView, self).list(request, *args, **kwargs)
+    return super(LocationPostCreateListView, self).list(request, *args, **kwargs)
 
   def create(self, request, *args, **kwargs):
-    return super(LocationPostListView, self).create(request, *args, **kwargs)
+    return super(LocationPostCreateListView, self).create(request, *args, **kwargs)
 
   def get_permissions(self):
         try:
@@ -157,7 +173,7 @@ class LocationPostCreateListView(viewsets.ModelViewSet):
 class LocationPostDetailSet(viewsets.ModelViewSet):
   queryset = LocationPost.objects.all()
   serializer_class = LocationPostSerializer
-  permission_classes_by_action = {'retrieve': [IsAuthenticated], 'update': [IsOwnerAndAuthenticated], 'destroy': [IsOwnerAndAuthenticated]}
+  permission_classes_by_action = {'retrieve': [AllowAny], 'update': [IsOwnerAndAuthenticated], 'destroy': [IsOwnerAndAuthenticated]}
 
   def retrieve(self, request, *args, **kwargs):
     return super(LocationPostDetailSet, self).retrieve(request, *args, **kwargs)

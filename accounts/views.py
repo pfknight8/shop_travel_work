@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from .models import User
 from .serializers import UserSerializer
 from .custompermissions import IsUserAndAuthenticated
-from accounts import serializers
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -44,9 +43,6 @@ class UserDetailViewSet(viewsets.ModelViewSet):
   
   def update(self, request, *args, **kwargs):
     return super(UserDetailViewSet, self).update(request, *args, **kwargs)
-
-  # def destroy(self, request, *args, **kwargs):
-  #   return super(UserDetailViewSet, self).destroy(request, *args, **kwargs)
 
   def destroy(self, request, *args, **kwargs):
     user = self.get_object()
