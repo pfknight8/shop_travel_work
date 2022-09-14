@@ -1,1 +1,1 @@
-web: gunicorn stw_django.wsgi
+web: gunicorn shop_travel_work.wsgi
