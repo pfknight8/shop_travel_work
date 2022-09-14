@@ -26,10 +26,9 @@
 
 ### Description
 
-#### This is my capstone project for General Assembly - SEI program. This website aims to serve as a place for Digital Nomads to gather (whether practicing or aspiring). Remote work has had a great amount of growth these days, and one of the potential benefits of being offsite is that one can technically work from anywhere. This has led to the concept of the 'digital nomad,' where one no longer has to wait for a suitable vacation window to go and see the world...one can go anywhere with reliable internet and still be able to work.
-#### The objective of this site is for people to encourage each other to take the opportunity to go and experience the world while they have the opportunity. Post places that you've been, what local fare to expect, and what types of local crafts are available...
-#### The initial build will be limited to myself and my wife, but expansion to a community website is a stretch goal.
-#### **_More to come..._**
+#### This is my capstone project for General Assembly - SEI program. This website aims to serve as a place for Digital Nomads to gather (whether practicing or aspiring). Remote work has had a great amount of growth these days, and one of the potential benefits of being offsite is that one can technically work from anywhere. This has led to the concept of the 'digital nomad,' where one no longer has to wait for a suitable vacation window to go and see the world, but can go anywhere with reliable internet and still be able to work.
+#### The objective of this site is for people to encourage each other to take the opportunity to go and experience the world while they have the opportunity. Post places that you've been, what local fare to expect, and what types of local crafts are available to browse.
+#### The initial build will be limited to myself and my wife, but expansion to a community website is the ultimate stretch goal. Please feel free to check back every once in a while to see my progress.
 
 ---
 
@@ -37,7 +36,6 @@
 
 * Django/Python3
 * PostgreSQL
-* ???
 
 ---
 
@@ -51,8 +49,9 @@
 
 ### Getting Started
 
-- `Fork` & `Clone` this repository.
-- `Django commands`
+- `Fork` & `Clone` this repository
+- `pipenv install` necessary dependencies
+- `pipenv shell` in the project root to start a virtual environment
 
 #### Dependencies (packages) include: psycopg2-binary, django-cors-headers, rest_framework, dj-database-url, rest_framework_simplejwt, django-filter, python-decouple, WhiteNoiseMiddleware, and gunicorn
 
