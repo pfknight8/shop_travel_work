@@ -90,6 +90,7 @@ WSGI_APPLICATION = 'stw_django.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    # Switch these for heroku vs local machine: heroku was not working, so reverted this.
     # 'default': dj_database_url.config(conn_max_age=600)
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

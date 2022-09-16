@@ -32,9 +32,6 @@ class UserDetailViewSet(viewsets.ModelViewSet):
   serializer_class = UserSerializer
   permission_classes_by_action = {'retrieve': [IsAuthenticated], 'update': [IsUserAndAuthenticated], 'destroy': [IsUserAndAuthenticated | IsAdminUser]}
 
-  # def retrieve(self, request, *args, **kwargs):
-  #   return super(UserDetailViewSet, self).retrieve(request, *args, **kwargs)
-
   def retrieve(self, request, username):
     queryset = User.objects.all()
     user = get_object_or_404(queryset, username=username)

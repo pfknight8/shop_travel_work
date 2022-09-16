@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 from rest_framework.authtoken.views import obtain_auth_token
-# if would need to use simplejwt instead:
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 urlpatterns = [
