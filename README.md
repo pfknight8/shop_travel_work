@@ -16,7 +16,7 @@
 
 ### **_Project Links_**
 
-[Trello](https://trello.com/b/OW6x9FLC/ga-capstone) | [Deployment]
+[Trello](https://trello.com/b/OW6x9FLC/ga-capstone) | [Deployment](https://ancient-eyrie-35166.herokuapp.com/)
 
 ### **_Frontend Repository_**
 

@@ -90,14 +90,14 @@ WSGI_APPLICATION = 'stw_django.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'shop_travel_work',
-    #     'USER': 'stwuser',
-    #     'PASSWORD': 'password',
-    #     'HOST': 'localhost'
-    # }
+    # 'default': dj_database_url.config(conn_max_age=600)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'shop_travel_work',
+        'USER': 'stwuser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost'
+    }
 }
 
 DATABASE_URL='postgres://stwuser:password@localhost:5432/shop_travel_work'
