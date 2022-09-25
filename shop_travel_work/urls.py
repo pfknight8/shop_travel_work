@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-  path('locations', views.LocationListView.as_view({'get': 'list', 'post': 'create'}), name='location-list'),
+  path('', views.LocationListView.as_view({'get': 'list', 'post': 'create'}), name='location-list'),
   path('locations/<int:pk>', views.LocationDetailSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='location-detail'),
   # Local Fare paths
   path('localfare/view', views.LocalFareList.as_view()),
